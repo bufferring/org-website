@@ -43,20 +43,20 @@ export default function Contact() {
 
   return (
     <div className="pt-20 pb-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <motion.div 
-          className="text-center mb-16"
+          className="mb-16 text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="text-4xl font-bold text-white mb-4">Contact BufferRing</h1>
-          <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+          <h1 className="mb-4 text-4xl font-bold text-white">Contact BufferRing</h1>
+          <p className="mx-auto max-w-2xl text-lg text-gray-400">
             Have a project idea or want to collaborate? Get in touch!
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
           <motion.div 
             variants={containerVariants}
             initial="hidden"
@@ -64,7 +64,7 @@ export default function Contact() {
             data-aos="fade-right"
           >
             <motion.h2 
-              className="text-2xl font-bold text-white mb-6"
+              className="mb-6 text-2xl font-bold text-white"
               variants={itemVariants}
             >
               Contact Information
@@ -126,10 +126,10 @@ export default function Contact() {
               className="mt-12"
               variants={itemVariants}
             >
-              <h3 className="text-xl font-semibold text-white mb-4">Our Mission</h3>
+              <h3 className="mb-4 text-xl font-semibold text-white">Our Mission</h3>
               <p className="text-gray-400">
                 BufferRing is dedicated to creating innovative open-source solutions that
-                empower developers and foster collaboration across the digital cosmos.
+                empower developers and foster collaboration across the digital globe.
                 We believe in transparency, community-driven development, and
                 creating tools that make a difference.
               </p>
@@ -142,22 +142,22 @@ export default function Contact() {
             transition={{ duration: 0.6 }}
             data-aos="fade-left"
           >
-            <h2 className="text-2xl font-bold text-white mb-6">Send Message</h2>
+            <h2 className="mb-6 text-2xl font-bold text-white">Send Message</h2>
             
             {submitted && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-gradient-to-r from-gray-900/50 to-gray-800/50 border border-gray-500 text-gray-300 p-4 rounded-lg mb-6"
+                className="p-4 mb-6 text-gray-300 bg-gradient-to-r rounded-lg border border-gray-500 from-gray-900/50 to-gray-800/50"
               >
                 Thank you for your message! We'll get back to you soon.
               </motion.div>
             )}
             
             <form onSubmit={handleSubmit} className="gradient-border">
-              <div className="bg-gray-900/80 backdrop-blur-sm p-8 rounded-xl">
+              <div className="p-8 rounded-xl backdrop-blur-sm bg-gray-900/80">
                 <div className="mb-6">
-                  <label htmlFor="name" className="block text-gray-300 font-medium mb-2">
+                  <label htmlFor="name" className="block mb-2 font-medium text-gray-300">
                     Your Name
                   </label>
                   <input
@@ -167,13 +167,13 @@ export default function Contact() {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 focus:border-gray-500 focus:ring-1 focus:ring-gray-500 outline-none text-white"
+                    className="px-4 py-3 w-full text-white bg-gray-800 rounded-lg border border-gray-700 outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-500"
                     placeholder="Your name"
                   />
                 </div>
                 
                 <div className="mb-6">
-                  <label htmlFor="email" className="block text-gray-300 font-medium mb-2">
+                  <label htmlFor="email" className="block mb-2 font-medium text-gray-300">
                     Your Email
                   </label>
                   <input
@@ -183,13 +183,13 @@ export default function Contact() {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 focus:border-gray-500 focus:ring-1 focus:ring-gray-500 outline-none text-white"
+                    className="px-4 py-3 w-full text-white bg-gray-800 rounded-lg border border-gray-700 outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-500"
                     placeholder="your@email.com"
                   />
                 </div>
                 
                 <div className="mb-6">
-                  <label htmlFor="message" className="block text-gray-300 font-medium mb-2">
+                  <label htmlFor="message" className="block mb-2 font-medium text-gray-300">
                     Message
                   </label>
                   <textarea
@@ -199,14 +199,14 @@ export default function Contact() {
                     onChange={handleChange}
                     required
                     rows={5}
-                    className="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 focus:border-gray-500 focus:ring-1 focus:ring-gray-500 outline-none text-white resize-none"
+                    className="px-4 py-3 w-full text-white bg-gray-800 rounded-lg border border-gray-700 outline-none resize-none focus:border-gray-500 focus:ring-1 focus:ring-gray-500"
                     placeholder="Your message..."
                   ></textarea>
                 </div>
                 
                 <motion.button
                   type="submit"
-                  className="bg-gradient-to-r from-gray-700 to-gray-900 hover:from-gray-800 hover:to-gray-950 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 flex items-center justify-center w-full"
+                  className="flex justify-center items-center px-6 py-3 w-full font-medium text-white bg-gradient-to-r from-gray-700 to-gray-900 rounded-lg transition-all duration-300 hover:from-gray-800 hover:to-gray-950"
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.98 }}
                 >

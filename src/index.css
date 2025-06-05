@@ -90,3 +90,95 @@ body {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(114, 114, 114);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(92, 92, 92);
+}
+
+/* SVG Animation */
+#path0 {
+  stroke-dasharray: 200;
+  fill: #1a1a1a;
+  stroke: #1a1a1a;
+  stroke-linecap: butt;
+  stroke-linejoin: miter;
+  stroke-miterlimit: 10;
+  fill-rule: nonzero;
+  -webkit-animation: bird 7s alternate;
+          animation: bird 7s alternate;
+}
+
+@-webkit-keyframes bird {
+  0% {
+    stroke-dashoffset: 2500;
+    fill-opacity: 0;
+    stroke-width: 0pt;
+  }
+
+  20% {
+    fill-opacity: 0;
+    stroke-width: 1pt;
+  }
+
+  40% {
+    fill-opacity: 0;
+  }
+
+  60% {
+    fill-opacity: 0;
+  }
+
+  80% {
+    fill-opacity: 0;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+    fill-opacity: 1;
+    stroke-width: 0pt;
+  }
+}
+
+@keyframes bird {
+  0% {
+    stroke-dashoffset: 2500;
+    fill-opacity: 0;
+    stroke-width: 0pt;
+  }
+
+  20% {
+    fill-opacity: 0;
+    stroke-width: 1pt;
+  }
+
+  40% {
+    fill-opacity: 0;
+  }
+
+  60% {
+    fill-opacity: 0;
+  }
+
+  80% {
+    fill-opacity: 1;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+    fill-opacity: 1;
+    stroke-width: 0pt;
+  }
+}
