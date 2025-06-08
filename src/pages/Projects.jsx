@@ -10,6 +10,7 @@ const REPO_COUNT = 3;
 export default function Projects() {
   const [repos, setRepos] = useState([]);
   const [languages, setLanguages] = useState([]);
+  const [defLanguages, setDefLanguages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -27,6 +28,24 @@ export default function Projects() {
 
         setRepos(filteredRepos);
 
+        const defLanguagesPromises = filteredRepos.map(async (repo) => {
+          try {
+            const response = await fetch(repo.languages_url);
+
+            if (!response.ok) return [];
+            const json = await response.json();
+            let defLangs = [];
+
+            for (const langName in json) {
+              defLangs.push(langName);
+            }
+
+            return defLangs;
+          } catch (err) {
+            return [];
+          }
+        });
+
         const languagePromises = filteredRepos.map(async (repo) => {
           try {
             const response = await fetch(
@@ -41,8 +60,13 @@ export default function Projects() {
           }
         });
 
-        const languageData = await Promise.all(languagePromises);
-        setLanguages(languageData);
+        const [defLanguageData, languageData] = await Promise.all([
+          Promise.all(defLanguagesPromises),
+          Promise.all(languagePromises)
+        ]);
+
+        setDefLanguages(defLanguageData);
+        setLanguages(languageData); 
 
         setLoading(false);
       } catch (err) {
@@ -113,7 +137,7 @@ export default function Projects() {
                 repo={repo}
                 githubOrg={GITHUB_ORG}
                 index={index}
-                _languages={languages[index]}
+                _languages={[...new Set([...languages[index], ...defLanguages[index]])]}
               />
             ))}
           </div>
