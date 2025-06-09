@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FaGithub, FaTelegram } from "react-icons/fa";
+import GitHubStats from "./GitHubStats";
 
 const TeamCarousel = () => {
   const divisions = [
@@ -183,24 +184,27 @@ const TeamCarousel = () => {
                     </div>
                   </div>
                   <div className="flex flex-col space-y-2">
-                    <a
-                      href={`https://t.me/${member.telegramUser}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center px-3 py-1 space-x-1 text-xs text-gray-300 bg-gray-800 rounded-full transition-colors hover:bg-gray-700 w-fit"
-                    >
-                      <FaTelegram />
-                      <span>@{member.telegramUser}</span>
-                    </a>
-                    <a
-                      href={member.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center px-3 py-1 space-x-1 text-xs text-gray-300 bg-gray-800 rounded-full transition-colors hover:bg-gray-700 w-fit"
-                    >
-                      <FaGithub />
-                      <span>{member.githubUser}</span>
-                    </a>
+                    <div className="flex space-x-2">
+                      <a
+                        href={`https://t.me/${member.telegramUser}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center px-3 py-1 space-x-1 text-xs text-gray-300 bg-gray-800 rounded-full transition-colors hover:bg-gray-700 w-fit"
+                      >
+                        <FaTelegram />
+                        <span>@{member.telegramUser}</span>
+                      </a>
+                      <a
+                        href={member.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center px-3 py-1 space-x-1 text-xs text-gray-300 bg-gray-800 rounded-full transition-colors hover:bg-gray-700 w-fit"
+                      >
+                        <FaGithub />
+                        <span>{member.githubUser}</span>
+                      </a>
+                      <GitHubStats username={member.githubUser} />
+                    </div>
                   </div>
                 </motion.div>
               ))}
