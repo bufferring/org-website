@@ -3,20 +3,30 @@ import { motion } from 'framer-motion';
 import { FiGithub, FiExternalLink, FiStar } from 'react-icons/fi';
 
 export default function RepoCard({ repo, githubOrg, index, _languages }) {
-  const languages = _languages
+  const languages = _languages;
 
   const langs = {
-	"React" : "https://img.shields.io/badge/React-004870?style=for-the-badge&logo=react",
+    "React" : "https://img.shields.io/badge/React-004870?style=for-the-badge&logo=react",
     "TailwindCSS" : "https://img.shields.io/badge/TailwindCSS-006670?style=for-the-badge&logo=tailwindcss",
     "HTML" : "https://img.shields.io/badge/HTML-62291e?style=for-the-badge&logo=html5",
     "CSS" : "https://img.shields.io/badge/CSS-1e4762?style=for-the-badge&logo=css",
     "NodeJS" : "https://img.shields.io/badge/NodeJS-385836?style=for-the-badge&logo=nodedotjs",
     "Vite" : "https://img.shields.io/badge/Vite-363d58?style=for-the-badge&logo=vite",
     "MySQL" : "https://img.shields.io/badge/MySQL-00162d?style=for-the-badge&logo=mysql",
-	"JavaScript": "https://img.shields.io/badge/JavaScript-474100?style=for-the-badge&logo=javascript",
-	"Sequelize": "https://img.shields.io/badge/Sequelize-005382?style=for-the-badge&logo=sequelize",
-	"Express" : "https://img.shields.io/badge/Express-black?style=for-the-badge&logo=express",
-	"TypeScript": "https://img.shields.io/badge/TypeScript-002234?style=for-the-badge&logo=typescript"
+    "JavaScript": "https://img.shields.io/badge/JavaScript-474100?style=for-the-badge&logo=javascript",
+    "Sequelize": "https://img.shields.io/badge/Sequelize-005382?style=for-the-badge&logo=sequelize",
+    "Express" : "https://img.shields.io/badge/Express-black?style=for-the-badge&logo=express",
+    "TypeScript": "https://img.shields.io/badge/TypeScript-002234?style=for-the-badge&logo=typescript",
+    "Python" : "https://img.shields.io/badge/Python-001f2d?style=for-the-badge&logo=python",
+    "PHP" : "https://img.shields.io/badge/PHP-21002d?style=for-the-badge&logo=php",
+    "Laravel" : "https://img.shields.io/badge/Laravel-0f0000?style=for-the-badge&logo=laravel",
+    "C" : "https://img.shields.io/badge/C-1f2936?style=for-the-badge&logo=c",
+    "C++" : "https://img.shields.io/badge/C%2B%2B-040039?style=for-the-badge&logo=cplusplus",
+    "Linux" : "https://img.shields.io/badge/Linux-4e4900?style=for-the-badge&logo=linux",
+    "Apache" : "https://img.shields.io/badge/Apache-4e0a09?style=for-the-badge&logo=apache",
+    "Flask" : "https://img.shields.io/badge/Flask-010101?style=for-the-badge&logo=flask",
+    "PostgreSQL" : "https://img.shields.io/badge/PostgreSQL-27273e?style=for-the-badge&logo=postgresql",
+    "Markdown" : "https://img.shields.io/badge/Markdown-black?style=for-the-badge&logo=markdown"
   }
 
   return (
@@ -46,7 +56,7 @@ export default function RepoCard({ repo, githubOrg, index, _languages }) {
             </a>
           </div>
 
-          <div className="flex flex-col h-[100%]">
+          <div className="flex flex-col h-[100%] w-[100%]">
             <div className="flex justify-between items-start mb-3">
               <h3 className="text-xl font-bold text-white">{repo.name}</h3>
               <div className="flex space-x-2">
@@ -85,29 +95,29 @@ export default function RepoCard({ repo, githubOrg, index, _languages }) {
               ))}
             </div>
 
-			{Array.isArray(languages) && languages.length > 0 ? (
-			  <div className="flex flex-wrap gap-2 mb-6">
-				{languages.map((langKey) => (
-				  <img
-					key={langKey}
-					src={langs[langKey] || ''}
-					alt={`${langKey} badge`}
-					className="h-6"
-				  />
-				))}
-			  </div>
-			) : (
-			  <div className="flex flex-wrap gap-2 mb-6">
-				<p>No languages to display</p>
-			  </div>
-			)}
+            {Array.isArray(languages) && languages.length > 0 ? (
+              <div className="flex flex-wrap gap-2 mb-6">
+                {languages.map((langKey) => (
+                  <img
+                    key={langKey}
+                    src={langs[langKey] || ''}
+                    alt={`${langKey} badge`}
+                    className="h-6"
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="flex flex-wrap gap-2 mb-6">
+                <p className="text-gray-500">No languages to display</p>
+              </div>
+            )}
 
             <div className="flex mt-[auto] justify-between items-center text-sm text-gray-500">
-              <span className="flex items-center">
+              <span className="flex mr-4 items-center">
                 <div className="mr-1 w-3 h-3 bg-gray-500 rounded-full"></div>
                 {repo.language || 'Code'}
               </span>
-              <span className="flex items-center">
+              <span className="flex mr-[auto] items-center">
                 <FiStar className="mr-1 text-gray-400" />
                 {repo.stargazers_count}
               </span>
