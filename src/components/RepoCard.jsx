@@ -26,7 +26,10 @@ export default function RepoCard({ repo, githubOrg, index, _languages }) {
     "Apache" : "https://img.shields.io/badge/Apache-4e0a09?style=for-the-badge&logo=apache",
     "Flask" : "https://img.shields.io/badge/Flask-010101?style=for-the-badge&logo=flask",
     "PostgreSQL" : "https://img.shields.io/badge/PostgreSQL-27273e?style=for-the-badge&logo=postgresql",
-    "Markdown" : "https://img.shields.io/badge/Markdown-black?style=for-the-badge&logo=markdown"
+    "Markdown" : "https://img.shields.io/badge/Markdown-black?style=for-the-badge&logo=markdown",
+    "Mermaid" : "https://img.shields.io/badge/Mermaid-621e39?style=for-the-badge&logo=mermaid",
+    "Shell" : "https://img.shields.io/badge/Shell-344f2c?style=for-the-badge&logo=gnubash",
+    "Rust" : "https://img.shields.io/badge/Rust-623c1e?style=for-the-badge&logo=rust",
   }
 
   return (
