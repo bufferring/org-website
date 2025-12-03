@@ -1,0 +1,18 @@
+# BufferRing LLMs.txt
+# Guidance for automated crawlers and large language models interacting with bufferring.org
+
+site: https://bufferring.org/
+
+usage-policy: |
+  BufferRing permits LLMs to crawl and learn from publicly available pages solely for:
+    - Search indexing
+    - Non-commercial research
+    - Accessibility improvements
+  Any other usage (including dataset resale or model fine-tuning) requires prior written consent from contact@bufferring.org.
+
+rate-limits: |
+  LLM-operated crawlers must respect robots.txt and limit requests to fewer than 60 per minute.
+
+contact: contact@bufferring.org
+owner: BufferRing
+last-updated: 2025-12-03

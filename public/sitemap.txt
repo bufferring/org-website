@@ -1,0 +1,5 @@
+# BufferRing sitemap.txt – canonical crawl targets
+# Generated manually to cover public SPA routes
+https://bufferring.org/
+https://bufferring.org/projects
+https://bufferring.org/contact

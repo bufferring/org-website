@@ -82,9 +82,7 @@ out
 .nuxt
 dist
 
-# Archivos de Gatsby
 .cache/
-public
 
 # Directorio de salida de vuepress
 .vuepress/dist

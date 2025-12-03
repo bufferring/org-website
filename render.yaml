@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: org-website
+    env: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: NODE_VERSION
+        value: "18"
+    pullRequestPreviewsEnabled: true
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    headers:
+      - path: /*
+        headers:
+          - name: Content-Security-Policy
+            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https://api.github.com https://*.githubusercontent.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests"
+          - name: Strict-Transport-Security
+            value: max-age=31536000; includeSubDomains; preload
+          - name: Referrer-Policy
+            value: strict-origin-when-cross-origin
+          - name: X-Frame-Options
+            value: DENY
+          - name: X-Content-Type-Options
+            value: nosniff
+          - name: Cross-Origin-Resource-Policy
+            value: same-origin
+          - name: Cross-Origin-Opener-Policy
+            value: same-origin
+          - name: Cross-Origin-Embedder-Policy
+            value: credentialless
+          - name: Permissions-Policy
+            value: "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"

@@ -1,0 +1,9 @@
+# BufferRing robots.txt
+User-agent: *
+Allow: /
+
+# Respect higher rate limits when crawling the GitHub-powered projects feed.
+Crawl-delay: 5
+
+Sitemap: https://bufferring.org/sitemap.txt
+Host: bufferring.org
