@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bufferring.org/sitemap.xml
