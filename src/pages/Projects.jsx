@@ -1,111 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { FiGithub, FiExternalLink, FiStar } from 'react-icons/fi';
 import RepoCard from '../components/RepoCard.jsx';
 import ActivityFeed from '../components/ActivityFeed';
-
-const GITHUB_ORG = "bufferring";
-const REPO_COUNT = 3;
+import { useGitHubRepos } from '../hooks/useGitHubData';
+import { GITHUB_ORG } from '../config/constants';
 
 export default function Projects() {
-  const [repos, setRepos] = useState([]);
-  const [languages, setLanguages] = useState([]);
-  const [defLanguages, setDefLanguages] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchRepos = async () => {
-      const CACHE_KEY = 'github_repos_cache';
-      const CACHE_DURATION = 30 * 60 * 1000; // 30 minutes
-
-      try {
-        setLoading(true);
-
-        // Check cache
-        const cached = localStorage.getItem(CACHE_KEY);
-        if (cached) {
-          const { data, timestamp } = JSON.parse(cached);
-          const now = Date.now();
-          if (now - timestamp < CACHE_DURATION) {
-            setRepos(data.repos);
-            setLanguages(data.languages);
-            setDefLanguages(data.defLanguages);
-            setLoading(false);
-            return;
-          }
-        }
-
-        const response = await axios.get(
-          `https://api.github.com/orgs/${GITHUB_ORG}/repos?sort=created&direction=desc&per_page=${REPO_COUNT}`
-        );
-
-        const filteredRepos = response.data.filter(repo =>
-          !repo.fork && repo.description
-        );
-
-        setRepos(filteredRepos);
-
-        const defLanguagesPromises = filteredRepos.map(async (repo) => {
-          try {
-            const response = await fetch(repo.languages_url);
-
-            if (!response.ok) return [];
-            const json = await response.json();
-            let defLangs = [];
-
-            for (const langName in json) {
-              defLangs.push(langName);
-            }
-
-            return defLangs;
-          } catch (err) {
-            return [];
-          }
-        });
-
-        const languagePromises = filteredRepos.map(async (repo) => {
-          try {
-            const response = await fetch(
-              `https://raw.githubusercontent.com/${GITHUB_ORG}/${repo.name}/${repo.default_branch}/brpub/langdata.json`
-            );
-
-            if (!response.ok) return [];
-            const json = await response.json();
-            return json;
-          } catch (err) {
-            return [];
-          }
-        });
-
-        const [defLanguageData, languageData] = await Promise.all([
-          Promise.all(defLanguagesPromises),
-          Promise.all(languagePromises)
-        ]);
-
-        setDefLanguages(defLanguageData);
-        setLanguages(languageData);
-
-        // Save to cache
-        localStorage.setItem(CACHE_KEY, JSON.stringify({
-          data: {
-            repos: filteredRepos,
-            languages: languageData,
-            defLanguages: defLanguageData
-          },
-          timestamp: Date.now()
-        }));
-
-        setLoading(false);
-      } catch (err) {
-        setError('Failed to fetch projects. GitHub API rate limit may be exceeded. Try again later.');
-        setLoading(false);
-      }
-    };
-
-    fetchRepos();
-  }, []);
+  const { repos, languages, defLanguages, loading, error } = useGitHubRepos();
 
   if (loading) {
     return (

@@ -1,38 +1,16 @@
 services:
-  - type: static_site
+  - type: web
     name: bufferring-org-website
-    env: static
+    runtime: static
     buildCommand: npm install && npm run build
-    publishDir: dist
-    headers:
-      - path: /*
-        name: Content-Security-Policy
-        value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https://api.github.com https://*.githubusercontent.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests"
-      - path: /*
-        name: Strict-Transport-Security
-        value: "max-age=31536000; includeSubDomains; preload"
-      - path: /*
-        name: Referrer-Policy
-        value: strict-origin-when-cross-origin
-      - path: /*
-        name: X-Frame-Options
-        value: DENY
-      - path: /*
-        name: X-Content-Type-Options
-        value: nosniff
-      - path: /*
-        name: Cross-Origin-Resource-Policy
-        value: same-origin
-      - path: /*
-        name: Cross-Origin-Opener-Policy
-        value: same-origin
-      - path: /*
-        name: Cross-Origin-Embedder-Policy
-        value: credentialless
-      - path: /*
-        name: Permissions-Policy
-        value: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()
+    staticPublishPath: dist
     routes:
+      - type: rewrite
+        source: /projects
+        destination: /index.html
+      - type: rewrite
+        source: /contact
+        destination: /index.html
       - type: rewrite
         source: /*
         destination: /index.html

@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Projects from './pages/Projects';
 import Contact from './pages/Contact';
 import Layout from './layouts/Layout';
+import ErrorBoundary from './components/ErrorBoundary';
 
 function App() {
   useEffect(() => {
@@ -14,63 +15,66 @@ function App() {
       duration: 800,
       once: true,
     });
-    
+
     // Create stars
     const createStars = () => {
       const container = document.querySelector('.star-container');
       if (!container) return;
-      
+
       // Clear existing stars
       container.innerHTML = '';
-      
+
       const starsCount = 200;
       const containerWidth = container.clientWidth;
       const containerHeight = container.clientHeight;
-      
+
       for (let i = 0; i < starsCount; i++) {
         const star = document.createElement('div');
         star.className = 'star';
-        
+
         // Random position
         const left = Math.random() * containerWidth;
         const top = Math.random() * containerHeight;
-        
+
         // Random size (0.5px to 2px)
         const size = Math.random() * 1.5 + 0.5;
-        
+
         // Random opacity and animation delay
         const opacity = Math.random() * 0.7 + 0.3;
         const delay = Math.random() * 5;
-        
+
         star.style.left = `${left}px`;
         star.style.top = `${top}px`;
         star.style.width = `${size}px`;
         star.style.height = `${size}px`;
         star.style.opacity = opacity;
         star.style.animation = `twinkle ${Math.random() * 5 + 3}s infinite ${delay}s`;
-        
+
         container.appendChild(star);
       }
     };
-    
+
     createStars();
     window.addEventListener('resize', createStars);
-    
+
     return () => {
       window.removeEventListener('resize', createStars);
     };
   }, []);
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="projects" element={<Projects />} />
-          <Route path="contact" element={<Contact />} />
-        </Route>
-      </Routes>
-    </Router>
+    <ErrorBoundary>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="projects" element={<Projects />} />
+            <Route path="contact" element={<Contact />} />
+            <Route path="*" element={<Home />} />
+          </Route>
+        </Routes>
+      </Router>
+    </ErrorBoundary>
   );
 }
 

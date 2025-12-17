@@ -2,12 +2,12 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { FiGithub, FiExternalLink, FiStar } from 'react-icons/fi';
 
-import { getAsciiCover } from '../utils/asciiArt';
+import { getAsciiCover } from '../utils/asciiArt.jsx';
 import MatrixReveal from './MatrixReveal';
 
 export default function RepoCard({ repo, githubOrg, index, _languages }) {
   const languages = _languages;
-  const asciiArt = getAsciiCover(repo.name, repo.topics);
+  const asciiArt = getAsciiCover(repo.name, repo.topics, languages);
 
   const langs = {
     // ... (keep your existing langs map)
@@ -88,7 +88,7 @@ export default function RepoCard({ repo, githubOrg, index, _languages }) {
             </div>
             <p className="mb-4 text-gray-400">{repo.description || 'A BufferRing project'}</p>
 
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 mb-2">
               {repo.topics?.slice(0, 5).map((topic, idx) => (
                 <span
                   key={idx}
@@ -100,7 +100,7 @@ export default function RepoCard({ repo, githubOrg, index, _languages }) {
             </div>
 
             {Array.isArray(languages) && languages.length > 0 ? (
-              <div className="flex flex-wrap gap-2 mb-6">
+              <div className="flex flex-wrap gap-3 mb-6">
                 {languages.map((langKey) => (
                   <img
                     key={langKey}
