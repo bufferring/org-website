@@ -2,34 +2,39 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { FiGithub, FiExternalLink, FiStar } from 'react-icons/fi';
 
+import { getAsciiCover } from '../utils/asciiArt';
+import MatrixReveal from './MatrixReveal';
+
 export default function RepoCard({ repo, githubOrg, index, _languages }) {
   const languages = _languages;
+  const asciiArt = getAsciiCover(repo.name, repo.topics);
 
   const langs = {
-    "React" : "https://img.shields.io/badge/React-004870?style=for-the-badge&logo=react",
-    "TailwindCSS" : "https://img.shields.io/badge/TailwindCSS-006670?style=for-the-badge&logo=tailwindcss",
-    "HTML" : "https://img.shields.io/badge/HTML-62291e?style=for-the-badge&logo=html5",
-    "CSS" : "https://img.shields.io/badge/CSS-1e4762?style=for-the-badge&logo=css",
-    "NodeJS" : "https://img.shields.io/badge/NodeJS-385836?style=for-the-badge&logo=nodedotjs",
-    "Vite" : "https://img.shields.io/badge/Vite-363d58?style=for-the-badge&logo=vite",
-    "MySQL" : "https://img.shields.io/badge/MySQL-00162d?style=for-the-badge&logo=mysql",
+    // ... (keep your existing langs map)
+    "React": "https://img.shields.io/badge/React-004870?style=for-the-badge&logo=react",
+    "TailwindCSS": "https://img.shields.io/badge/TailwindCSS-006670?style=for-the-badge&logo=tailwindcss",
+    "HTML": "https://img.shields.io/badge/HTML-62291e?style=for-the-badge&logo=html5",
+    "CSS": "https://img.shields.io/badge/CSS-1e4762?style=for-the-badge&logo=css",
+    "NodeJS": "https://img.shields.io/badge/NodeJS-385836?style=for-the-badge&logo=nodedotjs",
+    "Vite": "https://img.shields.io/badge/Vite-363d58?style=for-the-badge&logo=vite",
+    "MySQL": "https://img.shields.io/badge/MySQL-00162d?style=for-the-badge&logo=mysql",
     "JavaScript": "https://img.shields.io/badge/JavaScript-474100?style=for-the-badge&logo=javascript",
     "Sequelize": "https://img.shields.io/badge/Sequelize-005382?style=for-the-badge&logo=sequelize",
-    "Express" : "https://img.shields.io/badge/Express-black?style=for-the-badge&logo=express",
+    "Express": "https://img.shields.io/badge/Express-black?style=for-the-badge&logo=express",
     "TypeScript": "https://img.shields.io/badge/TypeScript-002234?style=for-the-badge&logo=typescript",
-    "Python" : "https://img.shields.io/badge/Python-001f2d?style=for-the-badge&logo=python",
-    "PHP" : "https://img.shields.io/badge/PHP-21002d?style=for-the-badge&logo=php",
-    "Laravel" : "https://img.shields.io/badge/Laravel-0f0000?style=for-the-badge&logo=laravel",
-    "C" : "https://img.shields.io/badge/C-1f2936?style=for-the-badge&logo=c",
-    "C++" : "https://img.shields.io/badge/C%2B%2B-040039?style=for-the-badge&logo=cplusplus",
-    "Linux" : "https://img.shields.io/badge/Linux-4e4900?style=for-the-badge&logo=linux",
-    "Apache" : "https://img.shields.io/badge/Apache-4e0a09?style=for-the-badge&logo=apache",
-    "Flask" : "https://img.shields.io/badge/Flask-010101?style=for-the-badge&logo=flask",
-    "PostgreSQL" : "https://img.shields.io/badge/PostgreSQL-27273e?style=for-the-badge&logo=postgresql",
-    "Markdown" : "https://img.shields.io/badge/Markdown-black?style=for-the-badge&logo=markdown",
-    "Mermaid" : "https://img.shields.io/badge/Mermaid-621e39?style=for-the-badge&logo=mermaid",
-    "Shell" : "https://img.shields.io/badge/Shell-344f2c?style=for-the-badge&logo=gnubash",
-    "Rust" : "https://img.shields.io/badge/Rust-623c1e?style=for-the-badge&logo=rust",
+    "Python": "https://img.shields.io/badge/Python-001f2d?style=for-the-badge&logo=python",
+    "PHP": "https://img.shields.io/badge/PHP-21002d?style=for-the-badge&logo=php",
+    "Laravel": "https://img.shields.io/badge/Laravel-0f0000?style=for-the-badge&logo=laravel",
+    "C": "https://img.shields.io/badge/C-1f2936?style=for-the-badge&logo=c",
+    "C++": "https://img.shields.io/badge/C%2B%2B-040039?style=for-the-badge&logo=cplusplus",
+    "Linux": "https://img.shields.io/badge/Linux-4e4900?style=for-the-badge&logo=linux",
+    "Apache": "https://img.shields.io/badge/Apache-4e0a09?style=for-the-badge&logo=apache",
+    "Flask": "https://img.shields.io/badge/Flask-010101?style=for-the-badge&logo=flask",
+    "PostgreSQL": "https://img.shields.io/badge/PostgreSQL-27273e?style=for-the-badge&logo=postgresql",
+    "Markdown": "https://img.shields.io/badge/Markdown-black?style=for-the-badge&logo=markdown",
+    "Mermaid": "https://img.shields.io/badge/Mermaid-621e39?style=for-the-badge&logo=mermaid",
+    "Shell": "https://img.shields.io/badge/Shell-344f2c?style=for-the-badge&logo=gnubash",
+    "Rust": "https://img.shields.io/badge/Rust-623c1e?style=for-the-badge&logo=rust",
   }
 
   return (
@@ -44,17 +49,13 @@ export default function RepoCard({ repo, githubOrg, index, _languages }) {
         <div className="flex flex-col sm:flex-row items-center h-full">
           <div className="flex-shrink-0 mb-4 sm:mb-0 sm:mr-6">
             <a href={repo.html_url} target="_blank" rel="noopener noreferrer">
-              <div className="overflow-hidden h-200 w-200 rounded-lg border border-gray-700 lg:h-[200px] lg:w-[200px] sm:w-28 sm:h-28">
-                <img
-                  src={`https://raw.githubusercontent.com/${githubOrg}/${repo.name}/${repo.default_branch}/brpub/cover.png`}
-                  alt={repo.name}
-                  className="object-cover h-full w-full bg-gray-800"
-                  onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src =
-                      "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%239ca3af'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z'/%3E%3C/svg%3E";
-                  }}
-                />
+              <div className="flex overflow-hidden justify-center items-center w-28 h-28 font-mono font-bold text-green-500 bg-gray-950 rounded-lg border border-gray-700 lg:h-[200px] lg:w-[200px] sm:w-28 sm:h-28 relative">
+                <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
+                  <MatrixReveal
+                    text={asciiArt}
+                    className="whitespace-pre font-mono text-[8px] lg:text-[10px] leading-[1.1] text-center max-w-[90%] max-h-[90%] overflow-hidden"
+                  />
+                </div>
               </div>
             </a>
           </div>

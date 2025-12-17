@@ -3,6 +3,7 @@ import axios from 'axios';
 import { motion } from 'framer-motion';
 import { FiGithub, FiExternalLink, FiStar } from 'react-icons/fi';
 import RepoCard from '../components/RepoCard.jsx';
+import ActivityFeed from '../components/ActivityFeed';
 
 const GITHUB_ORG = "bufferring";
 const REPO_COUNT = 3;
@@ -16,13 +17,31 @@ export default function Projects() {
 
   useEffect(() => {
     const fetchRepos = async () => {
+      const CACHE_KEY = 'github_repos_cache';
+      const CACHE_DURATION = 30 * 60 * 1000; // 30 minutes
+
       try {
         setLoading(true);
+
+        // Check cache
+        const cached = localStorage.getItem(CACHE_KEY);
+        if (cached) {
+          const { data, timestamp } = JSON.parse(cached);
+          const now = Date.now();
+          if (now - timestamp < CACHE_DURATION) {
+            setRepos(data.repos);
+            setLanguages(data.languages);
+            setDefLanguages(data.defLanguages);
+            setLoading(false);
+            return;
+          }
+        }
+
         const response = await axios.get(
           `https://api.github.com/orgs/${GITHUB_ORG}/repos?sort=created&direction=desc&per_page=${REPO_COUNT}`
         );
 
-        const filteredRepos = response.data.filter(repo => 
+        const filteredRepos = response.data.filter(repo =>
           !repo.fork && repo.description
         );
 
@@ -66,7 +85,17 @@ export default function Projects() {
         ]);
 
         setDefLanguages(defLanguageData);
-        setLanguages(languageData); 
+        setLanguages(languageData);
+
+        // Save to cache
+        localStorage.setItem(CACHE_KEY, JSON.stringify({
+          data: {
+            repos: filteredRepos,
+            languages: languageData,
+            defLanguages: defLanguageData
+          },
+          timestamp: Date.now()
+        }));
 
         setLoading(false);
       } catch (err) {
@@ -97,11 +126,11 @@ export default function Projects() {
           <p className="mb-2 text-xl font-medium text-white">API Limit Reached</p>
           <p className="text-gray-400">{error}</p>
           <p className="mt-4 text-sm text-gray-500">
-            View our GitHub directly: 
-            <a href={`https://github.com/${GITHUB_ORG}`} 
-               target="_blank" 
-               rel="noopener noreferrer"
-               className="ml-1 text-gray-400 hover:underline">
+            View our GitHub directly:
+            <a href={`https://github.com/${GITHUB_ORG}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-1 text-gray-400 hover:underline">
               github.com/{GITHUB_ORG}
             </a>
           </p>
@@ -113,7 +142,7 @@ export default function Projects() {
   return (
     <div className="pt-20 pb-16">
       <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <motion.div 
+        <motion.div
           className="mb-16 text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -142,6 +171,24 @@ export default function Projects() {
             ))}
           </div>
         )}
+
+        {/* Active Contributors Section - Moved from Home */}
+        <div className="mt-24">
+          <motion.div
+            className="mb-12 text-center"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="mb-4 text-3xl font-bold text-white">Active Contributors</h2>
+            <p className="mx-auto max-w-2xl text-lg text-gray-400">
+              Meet the team making it happen
+            </p>
+          </motion.div>
+
+          <ActivityFeed />
+        </div>
       </div>
     </div>
   );
