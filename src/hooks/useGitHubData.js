@@ -1,75 +1,112 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { API_ENDPOINTS, CACHE_KEYS, CACHE_DURATION, GITHUB_ORG, REPO_COUNT } from '../config/constants';
+import { getCachedEntry, setCachedEntry, isExpired } from '../utils/cache';
+
+const normalizeRepo = (repo) => ({
+  id: repo.id,
+  name: repo.name,
+  description: repo.description,
+  html_url: repo.html_url,
+  homepage: repo.homepage,
+  language: repo.language,
+  stargazers_count: repo.stargazers_count,
+  updated_at: repo.updated_at,
+  topics: repo.topics,
+  languages_url: repo.languages_url,
+});
 
 export const useGitHubRepos = () => {
   const [repos, setRepos] = useState([]);
-  const [languages, setLanguages] = useState([]);
-  const [defLanguages, setDefLanguages] = useState([]);
+  const [languagesByRepo, setLanguagesByRepo] = useState([]);
+  const [languageSummary, setLanguageSummary] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState(null);
 
+  const hydrateFromPayload = useCallback((payload) => {
+    if (!payload) return;
+    setRepos(payload.repos || []);
+    setLanguagesByRepo(payload.languagesByRepo || []);
+    setLanguageSummary(payload.languageSummary || []);
+  }, []);
+
   useEffect(() => {
-    const fetchRepos = async () => {
+    let ignore = false;
+
+    const cached = getCachedEntry(CACHE_KEYS.GITHUB_REPOS);
+    if (cached?.data) {
+      hydrateFromPayload(cached.data);
+      setLoading(false);
+    }
+
+    const fetchRepos = async (silent = false) => {
       try {
-        setLoading(true);
-
-        // Check cache
-        const cached = localStorage.getItem(CACHE_KEYS.GITHUB_REPOS);
-        if (cached) {
-          const { data, timestamp } = JSON.parse(cached);
-          const now = Date.now();
-          if (now - timestamp < CACHE_DURATION) {
-            setRepos(data.repos);
-            setLanguages(data.languages);
-            setDefLanguages(data.defLanguages);
-            setLoading(false);
-            return;
-          }
+        if (!silent) {
+          setRefreshing(true);
         }
+        setError(null);
 
-        const response = await axios.get(
-          API_ENDPOINTS.GITHUB_ORG_REPOS(GITHUB_ORG, REPO_COUNT)
+        const reposResponse = await axios.get(
+          API_ENDPOINTS.GITHUB_ORG_REPOS(GITHUB_ORG, REPO_COUNT),
+          { headers: { Accept: 'application/vnd.github+json' } }
         );
 
-        const filteredRepos = response.data.filter(repo =>
-          !repo.fork && repo.description
+        const filteredRepos = reposResponse.data
+          .filter((repo) => !repo.fork && repo.description)
+          .map(normalizeRepo);
+
+        const languageRequests = filteredRepos.map((repo) =>
+          axios
+            .get(repo.languages_url, { headers: { Accept: 'application/vnd.github+json' } })
+            .then((response) => response.data)
+            .catch(() => ({}))
         );
 
-        setRepos(filteredRepos);
+        const languagesPayload = await Promise.all(languageRequests);
 
-        const defLanguagesPromises = filteredRepos.map(async (repo) => {
-          const langResponse = await axios.get(repo.languages_url);
-          return langResponse.data;
+        const summarySet = new Set();
+        const languagesMatrix = languagesPayload.map((langMap) => {
+          const names = Object.keys(langMap || {});
+          names.forEach((name) => summarySet.add(name));
+          return names;
         });
 
-        const defLanguagesData = await Promise.all(defLanguagesPromises);
-        setDefLanguages(defLanguagesData);
-
-        const allLanguages = new Set();
-        defLanguagesData.forEach(langs => {
-          Object.keys(langs).forEach(lang => allLanguages.add(lang));
-        });
-        setLanguages(Array.from(allLanguages));
-
-        // Cache the data
-        const cacheData = {
+        const payload = {
           repos: filteredRepos,
-          languages: Array.from(allLanguages),
-          defLanguages: defLanguagesData,
-          timestamp: Date.now()
+          languagesByRepo: languagesMatrix,
+          languageSummary: Array.from(summarySet),
         };
-        localStorage.setItem(CACHE_KEYS.GITHUB_REPOS, JSON.stringify(cacheData));
 
+        if (!ignore) {
+          hydrateFromPayload(payload);
+          setCachedEntry(CACHE_KEYS.GITHUB_REPOS, payload);
+          setLoading(false);
+        }
       } catch (err) {
-        setError(err.message);
+        if (!ignore) {
+          setError(err.message || 'Failed to fetch repositories');
+          setLoading(false);
+        }
       } finally {
-        setLoading(false);
+        if (!ignore) {
+          setRefreshing(false);
+        }
       }
     };
 
-    fetchRepos();
-  }, []);
+    const cachedExpired = isExpired(cached?.timestamp, CACHE_DURATION);
+    if (!cached || cachedExpired) {
+      fetchRepos(Boolean(cached));
+    }
 
-  return { repos, languages, defLanguages, loading, error };
+    const refreshTimer = setInterval(() => fetchRepos(true), CACHE_DURATION);
+
+    return () => {
+      ignore = true;
+      clearInterval(refreshTimer);
+    };
+  }, [hydrateFromPayload]);
+
+  return { repos, languagesByRepo, languageSummary, loading, refreshing, error };
 };

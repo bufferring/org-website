@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { FiGitCommit, FiGitPullRequest, FiStar, FiGitBranch, FiMessageCircle, FiAlertCircle } from 'react-icons/fi';
 import { formatDistanceToNow } from 'date-fns';
-
-// LocalStorage key for caching activity data
-const CACHE_KEY = 'github_activity_cache';
-const CACHE_DURATION = 30 * 60 * 1000; // 30 minutes
+import { CACHE_KEYS, CACHE_DURATION } from '../config/constants';
+import { getCachedEntry, setCachedEntry, isExpired } from '../utils/cache';
 
 // All team member GitHub usernames extracted from TeamCarousel
 const TEAM_MEMBERS = [
@@ -142,36 +140,32 @@ const ActivityFeed = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchActivities = async () => {
+        let ignore = false;
+
+        const cached = getCachedEntry(CACHE_KEYS.GITHUB_ACTIVITY);
+        if (cached?.data && !isExpired(cached.timestamp, CACHE_DURATION)) {
+            setActivities(cached.data);
+            setLoading(false);
+        }
+
+        const fetchActivities = async (silent = false) => {
             try {
-                // Check localStorage cache first
-                const cached = localStorage.getItem(CACHE_KEY);
-                if (cached) {
-                    const { data, timestamp } = JSON.parse(cached);
-                    const now = Date.now();
-
-                    // Use cached data if it's still valid
-                    if (now - timestamp < CACHE_DURATION) {
-                        setActivities(data);
-                        setLoading(false);
-                        return;
-                    }
+                if (!silent) {
+                    setLoading(true);
                 }
-
-                setLoading(true);
                 setError(null);
 
-                // Fetch events for each team member (limited to prevent rate limiting)
                 const eventPromises = TEAM_MEMBERS.slice(0, 10).map(async (username) => {
                     try {
                         const response = await fetch(
-                            `https://api.github.com/users/${username}/events/public?per_page=5`
+                            `https://api.github.com/users/${username}/events/public?per_page=5`,
+                            { headers: { Accept: 'application/vnd.github+json' } }
                         );
 
                         if (!response.ok) return [];
 
                         const events = await response.json();
-                        return events.filter(event => EVENT_CONFIGS[event.type]);
+                        return events.filter((event) => EVENT_CONFIGS[event.type]);
                     } catch {
                         return [];
                     }
@@ -180,32 +174,34 @@ const ActivityFeed = () => {
                 const allEvents = await Promise.all(eventPromises);
                 const flatEvents = allEvents.flat();
 
-                // Sort by date and take the most recent
                 const sortedEvents = flatEvents
                     .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
                     .slice(0, 12);
 
-                // Cache the results
-                localStorage.setItem(CACHE_KEY, JSON.stringify({
-                    data: sortedEvents,
-                    timestamp: Date.now()
-                }));
-
-                setActivities(sortedEvents);
-
+                if (!ignore) {
+                    setCachedEntry(CACHE_KEYS.GITHUB_ACTIVITY, sortedEvents);
+                    setActivities(sortedEvents);
+                    setLoading(false);
+                }
             } catch (err) {
-                setError('Failed to load activity');
-                console.error('Activity fetch error:', err);
-            } finally {
-                setLoading(false);
+                if (!ignore) {
+                    setError('Failed to load activity');
+                    console.error('Activity fetch error:', err);
+                    setLoading(false);
+                }
             }
         };
 
-        fetchActivities();
+        const shouldRefresh = !cached || isExpired(cached?.timestamp, CACHE_DURATION);
+        if (shouldRefresh) {
+            fetchActivities(Boolean(cached));
+        }
 
-        // Refresh every 5 minutes (same as cache duration)
-        const interval = setInterval(fetchActivities, CACHE_DURATION);
-        return () => clearInterval(interval);
+        const interval = setInterval(() => fetchActivities(true), CACHE_DURATION);
+        return () => {
+            ignore = true;
+            clearInterval(interval);
+        };
     }, []);
 
     return (
