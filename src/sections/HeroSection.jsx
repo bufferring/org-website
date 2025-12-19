@@ -144,7 +144,10 @@ export default function HeroSection({ id }) {
                   }
             }
           >
-            <div className="absolute inset-0 rounded-full bg-white/5 ring-1 ring-white/10" />
+            <div
+              className="absolute inset-0 rounded-full ring-1 ring-white/20"
+              style={{ backgroundColor: 'rgba(255, 255, 255, 0.015)' }}
+            />
             <div className="absolute inset-0 flex items-center justify-center">
               <svg
                 className="w-full h-full invert"

@@ -63,6 +63,7 @@ body {
   position: relative;
   border-radius: 1rem;
   overflow: hidden;
+  box-shadow: none;
 }
 
 .gradient-border::before {
@@ -73,8 +74,13 @@ body {
   right: 0;
   bottom: 0;
   border-radius: 1rem;
-  padding: 2px;
-  background: linear-gradient(45deg, #4b5563, #6b7280, #9ca3af);
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(148, 163, 184, 0.35),
+    rgba(107, 114, 128, 0.18),
+    rgba(148, 163, 184, 0.1)
+  );
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;

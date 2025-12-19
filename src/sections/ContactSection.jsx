@@ -145,7 +145,7 @@ export default function ContactSection({ id }) {
             <motion.div className="pt-6 border-t border-gray-800" variants={itemVariants}>
               <h4 className="mb-4 text-xl font-semibold text-white">Our Mission</h4>
               <p className="leading-relaxed text-gray-400">
-                BufferRing is dedicated to creating innovative open-source solutions that empower developers and foster collaboration across the digital globe. We believe in transparency, community-driven development, and creating tools that make a difference.
+                BufferRing accelerates startups and product teams with open-source platforms engineered for scale. We deliver implementation support, strategic advisory, and fundraising enablement so companies can launch faster, secure investment, and operate with confidence.
               </p>
             </motion.div>
           </motion.div>

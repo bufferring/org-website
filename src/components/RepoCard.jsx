@@ -45,7 +45,7 @@ export default function RepoCard({ repo, githubOrg, index, _languages }) {
       whileHover={{ y: -5, transition: { duration: 0.3 } }}
       className="gradient-border"
     >
-      <div className="p-6 h-full rounded-xl backdrop-blur-sm bg-gray-900/80">
+      <div className="p-6 h-full rounded-xl backdrop-blur-sm bg-gray-900/30 shadow-none">
         <div className="flex flex-col sm:flex-row items-center h-full">
           <div className="flex-shrink-0 mb-4 sm:mb-0 sm:mr-6">
             <a href={repo.html_url} target="_blank" rel="noopener noreferrer">
