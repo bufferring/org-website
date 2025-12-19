@@ -54,6 +54,7 @@ export default function Navbar({ sectionIds = [] }) {
           type="button"
           className="flex items-center gap-3 text-left"
           onClick={() => scrollToSection(items[0]?.id || 'hero')}
+          aria-label="Go to hero section"
         >
           <motion.img
             src={logo}
@@ -65,6 +66,7 @@ export default function Navbar({ sectionIds = [] }) {
           <span className="hidden text-lg font-semibold tracking-wide text-white sm:inline-block">
             BufferRing
           </span>
+          <span className="sr-only">BufferRing home</span>
         </button>
 
         <div className="hidden md:flex items-center justify-center gap-2 mx-auto md:absolute md:inset-y-0 md:left-1/2 md:-translate-x-1/2">
@@ -97,6 +99,9 @@ export default function Navbar({ sectionIds = [] }) {
             type="button"
             onClick={() => setMobileOpen((prev) => !prev)}
             className="p-2 text-gray-300 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400/60 rounded-full"
+            aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-navigation"
           >
             {mobileOpen ? <FiX size={22} /> : <FiMenu size={22} />}
           </button>
@@ -110,6 +115,7 @@ export default function Navbar({ sectionIds = [] }) {
               exit={{ opacity: 0, scale: 0.98 }}
               transition={{ duration: 0.2 }}
               className="absolute top-full mt-3 left-0 right-0 md:hidden"
+              id="mobile-navigation"
             >
               <div className="overflow-hidden rounded-2xl border border-white/10 bg-black/85 backdrop-blur-xl">
                 {items.map((item) => {

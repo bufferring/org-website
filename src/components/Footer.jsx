@@ -23,6 +23,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-white transition-colors"
+              aria-label="BufferRing on GitHub"
             >
               <FiGithub size={20} />
             </a>
@@ -31,6 +32,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-white transition-colors"
+              aria-label="BufferRing on Instagram"
             >
               <FiInstagram size={20} />
             </a>
@@ -39,6 +41,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-white transition-colors"
+              aria-label="BufferRing on TikTok"
             >
               <FaTiktok size={20} />
             </a>

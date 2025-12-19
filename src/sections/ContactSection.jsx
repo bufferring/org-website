@@ -100,7 +100,7 @@ export default function ContactSection({ id }) {
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.7, ease: 'easeOut' }}
         >
-          <h1 className="mb-4 text-4xl font-bold text-white">Contact BufferRing</h1>
+          <h2 className="mb-4 text-4xl font-bold text-white">Contact BufferRing</h2>
           <p className="mx-auto max-w-2xl text-lg text-gray-400">
             Have a project idea or want to collaborate? Get in touch!
           </p>
@@ -114,9 +114,9 @@ export default function ContactSection({ id }) {
             viewport={{ once: true, amount: 0.35 }}
             className="space-y-10"
           >
-            <motion.h2 className="text-2xl font-bold text-white" variants={itemVariants}>
+            <motion.h3 className="text-2xl font-bold text-white" variants={itemVariants}>
               Contact Information
-            </motion.h2>
+            </motion.h3>
 
             <motion.div className="space-y-6" variants={containerVariants}>
               {contactItems.map((item) => (
@@ -133,9 +133,9 @@ export default function ContactSection({ id }) {
                     {item.icon}
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-white transition-colors group-hover:text-gray-200">
+                    <h4 className="text-lg font-semibold text-white transition-colors group-hover:text-gray-200">
                       {item.title}
-                    </h3>
+                    </h4>
                     <p className="text-gray-400 transition-colors group-hover:text-gray-300">{item.content}</p>
                   </div>
                 </motion.a>
@@ -143,7 +143,7 @@ export default function ContactSection({ id }) {
             </motion.div>
 
             <motion.div className="pt-6 border-t border-gray-800" variants={itemVariants}>
-              <h3 className="mb-4 text-xl font-semibold text-white">Our Mission</h3>
+              <h4 className="mb-4 text-xl font-semibold text-white">Our Mission</h4>
               <p className="leading-relaxed text-gray-400">
                 BufferRing is dedicated to creating innovative open-source solutions that empower developers and foster collaboration across the digital globe. We believe in transparency, community-driven development, and creating tools that make a difference.
               </p>
@@ -156,7 +156,7 @@ export default function ContactSection({ id }) {
             viewport={{ once: true, amount: 0.35 }}
             transition={{ duration: 0.6, ease: 'easeOut', delay: 0.15 }}
           >
-            <h2 className="mb-6 text-2xl font-bold text-white">Send Message</h2>
+            <h3 className="mb-6 text-2xl font-bold text-white">Send Message</h3>
 
             {submitted && (
               <motion.div

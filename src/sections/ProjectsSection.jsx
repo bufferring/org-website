@@ -26,7 +26,7 @@ export default function ProjectsSection({ id }) {
 
   return (
     <section id={id} ref={sectionRef} className="relative pt-24 pb-24">
-      <div className="relative z-10 px-4 mx-auto max-w-6xl sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-6xl px-4 mx-auto sm:px-6 lg:px-8">
         <motion.div
           className="text-center"
           data-aos="fade-up"
@@ -36,18 +36,18 @@ export default function ProjectsSection({ id }) {
           whileInView="visible"
           viewport={{ once: true, amount: 0.4 }}
         >
-          <h1 className="text-4xl font-bold text-white mb-4">BufferRing Projects</h1>
-          <p className="mx-auto max-w-2xl text-lg text-gray-400">
+          <h2 className="mb-4 text-4xl font-bold text-white">BufferRing Projects</h2>
+          <p className="max-w-2xl mx-auto text-lg text-gray-400">
             Explore our latest open-source projects
           </p>
           {refreshing && !loading && (
             <motion.span
-              className="mt-4 inline-flex items-center gap-2 rounded-full border border-gray-700/70 bg-gray-900/60 px-3 py-1 text-xs uppercase tracking-wide text-gray-400"
+              className="inline-flex items-center gap-2 px-3 py-1 mt-4 text-xs tracking-wide text-gray-400 uppercase border rounded-full border-gray-700/70 bg-gray-900/60"
               initial={{ opacity: 0, y: -4 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <span className="h-2 w-2 animate-ping rounded-full bg-gray-400" />
+              <span className="w-2 h-2 bg-gray-400 rounded-full animate-ping" />
               Updating in background
             </motion.span>
           )}
@@ -85,7 +85,7 @@ export default function ProjectsSection({ id }) {
               <p className="text-gray-500">No projects discovered yet. Check back soon!</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 gap-6 mx-auto max-w-3xl">
+            <div className="grid max-w-3xl grid-cols-1 gap-6 mx-auto">
               {repos.map((repo, index) => (
                 <RepoCard
                   key={repo.id}
@@ -108,8 +108,8 @@ export default function ProjectsSection({ id }) {
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.7, ease: 'easeOut' }}
         >
-          <h2 className="text-3xl font-bold text-white mb-4 text-center">Active Contributors</h2>
-          <p className="mx-auto max-w-2xl text-lg text-gray-400 text-center">
+          <h3 className="mb-4 text-3xl font-bold text-center text-white">Active Contributors</h3>
+          <p className="max-w-2xl mx-auto text-lg text-center text-gray-400">
             Meet the team making it happen
           </p>
           <div className="mt-12">
