@@ -149,7 +149,7 @@ const GitHubStats = ({ username }) => {
                 <button
                   onClick={onClose}
                   className="absolute -top-2 -right-2 p-2 text-gray-400 hover:text-white bg-gray-800 rounded-full hover:bg-gray-700 transition-colors z-[10001]"
-                  aria-label="Cerrar modal"
+                  aria-label="Close modal"
                 >
                   <FaTimes size={20} />
                 </button>
@@ -256,7 +256,7 @@ const GitHubStats = ({ username }) => {
                           color: '#F3F4F6',
                           fontSize: '14px',
                         }}
-                        labelFormatter={(label) => `Semana: ${label}`}
+                        labelFormatter={(label) => `Week: ${label}`}
                         formatter={(value) => [`${value} commits`, 'Commits']}
                       />
                       <Line 

@@ -1,18 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { FiGitCommit, FiGitPullRequest, FiStar, FiGitBranch, FiMessageCircle, FiAlertCircle } from 'react-icons/fi';
 import { formatDistanceToNow } from 'date-fns';
-import { CACHE_KEYS, CACHE_DURATION } from '../config/constants';
+import { motion } from 'framer-motion';
+import { CACHE_KEYS, CACHE_DURATION, TEAM_MEMBERS } from '../config/constants';
 import { getCachedEntry, setCachedEntry, isExpired } from '../utils/cache';
-
-// All team member GitHub usernames extracted from TeamCarousel
-const TEAM_MEMBERS = [
-    // Frontend
-    'PotOfCode', 'Yumesitahack', 'AlfonzoPro', 'P13tr04', 'onweb-kym',
-    // Backend
-    'MrTanuk', 'zayas1234', 'Ailya45', 'Velangel', 'Hades-dev-code', 'GrandR4', 'WolveJC',
-    // AI
-    'Ray-Phamton', 'ImMau14', 'Theyobii', 'santcodex'
-];
 
 // Event type configurations
 const EVENT_CONFIGS = {
@@ -105,35 +96,6 @@ const ActivityItem = ({ activity }) => {
     );
 };
 
-// Commented out Contributors section as requested
-/*
-const ContributorAvatar = ({ username }) => {
-  const avatarUrl = `https://github.com/${username}.png?size=80`;
-  
-  return (
-    <a
-      href={`https://github.com/${username}`}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="relative group"
-      title={username}
-    >
-      <img
-        src={avatarUrl}
-        alt={username}
-        className="w-12 h-12 rounded-full border-2 border-gray-700 transition-all group-hover:border-gray-500 group-hover:scale-110"
-        onError={(e) => {
-          e.target.src = `https://ui-avatars.com/api/?name=${username}&background=374151&color=fff&size=80`;
-        }}
-      />
-      <div className="absolute inset-0 rounded-full bg-gradient-to-br from-gray-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-    </a>
-  );
-};
-*/
-
-import { motion } from 'framer-motion';
-
 const ActivityFeed = () => {
     const [activities, setActivities] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -216,15 +178,15 @@ const ActivityFeed = () => {
             >
                 {loading ? (
                     <div className="flex justify-center py-8">
-                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-500/50" />
+                        <div className="w-8 h-8 rounded-full border-b-2 animate-spin border-gray-500/50" />
                     </div>
                 ) : error ? (
-                    <div className="text-center py-8">
-                        <p className="text-gray-500 text-xs">{error}</p>
+                    <div className="py-8 text-center">
+                        <p className="text-xs text-gray-500">{error}</p>
                     </div>
                 ) : activities.length === 0 ? (
-                    <div className="text-center py-8">
-                        <p className="text-gray-500 text-xs">No recent activity</p>
+                    <div className="py-8 text-center">
+                        <p className="text-xs text-gray-500">No recent activity</p>
                     </div>
                 ) : (
                     <div className="marquee-container">
@@ -240,28 +202,6 @@ const ActivityFeed = () => {
                 )}
             </motion.div>
 
-            {/* Contributors Section - Commented Out as Requested */}
-            {/* 
-      <div className="pt-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-        <div className="text-center mb-6">
-          <h3 className="text-xl font-semibold text-gray-300 mb-2">Active Contributors</h3>
-          <p className="text-sm text-gray-500">Meet the team making it happen</p>
-        </div>
-        <div className="flex flex-wrap justify-center gap-4">
-          {displayedContributors.map((username) => (
-            <ContributorAvatar 
-              key={username}
-              username={username}
-            />
-          ))}
-          {remainingCount > 0 && (
-            <div className="w-12 h-12 rounded-full bg-gray-700 border-2 border-gray-600 flex items-center justify-center">
-              <span className="text-sm font-semibold text-gray-300">+{remainingCount}</span>
-            </div>
-          )}
-        </div>
-      </div>
-      */}
         </div>
     );
 };

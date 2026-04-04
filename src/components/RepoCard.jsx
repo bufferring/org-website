@@ -5,12 +5,10 @@ import { FiGithub, FiExternalLink, FiStar } from 'react-icons/fi';
 import { getAsciiCover } from '../utils/asciiArt.jsx';
 import MatrixReveal from './MatrixReveal';
 
-export default function RepoCard({ repo, githubOrg, index, _languages }) {
-  const languages = _languages;
+export default function RepoCard({ repo, githubOrg, index, languages }) {
   const asciiArt = getAsciiCover(repo.name, repo.topics, languages);
 
   const langs = {
-    // ... (keep your existing langs map)
     "React": "https://img.shields.io/badge/React-004870?style=for-the-badge&logo=react",
     "TailwindCSS": "https://img.shields.io/badge/TailwindCSS-006670?style=for-the-badge&logo=tailwindcss",
     "HTML": "https://img.shields.io/badge/HTML-62291e?style=for-the-badge&logo=html5",
@@ -45,12 +43,12 @@ export default function RepoCard({ repo, githubOrg, index, _languages }) {
       whileHover={{ y: -5, transition: { duration: 0.3 } }}
       className="gradient-border"
     >
-      <div className="p-6 h-full rounded-xl backdrop-blur-sm bg-gray-900/30 shadow-none">
-        <div className="flex flex-col sm:flex-row items-center h-full">
+      <div className="p-6 h-full rounded-xl shadow-none backdrop-blur-sm bg-gray-900/30">
+        <div className="flex flex-col items-center h-full sm:flex-row">
           <div className="flex-shrink-0 mb-4 sm:mb-0 sm:mr-6">
             <a href={repo.html_url} target="_blank" rel="noopener noreferrer">
               <div className="flex overflow-hidden justify-center items-center w-28 h-28 font-mono font-bold text-green-500 bg-gray-950 rounded-lg border border-gray-700 lg:h-[200px] lg:w-[200px] sm:w-28 sm:h-28 relative">
-                <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
+                <div className="flex absolute inset-0 justify-center items-center pointer-events-none">
                   <MatrixReveal
                     text={asciiArt}
                     className="whitespace-pre font-mono text-[8px] lg:text-[10px] leading-[1.1] text-center max-w-[90%] max-h-[90%] overflow-hidden"
@@ -117,7 +115,7 @@ export default function RepoCard({ repo, githubOrg, index, _languages }) {
             )}
 
             <div className="flex mt-[auto] justify-between items-center text-sm text-gray-500">
-              <span className="flex mr-4 items-center">
+              <span className="flex items-center mr-4">
                 <div className="mr-1 w-3 h-3 bg-gray-500 rounded-full"></div>
                 {repo.language || 'Code'}
               </span>

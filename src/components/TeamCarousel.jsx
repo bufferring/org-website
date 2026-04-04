@@ -11,7 +11,7 @@ const TeamCarousel = () => {
         {
           id: 1,
           name: "Miguel Pérez",
-          role: "Frontend Lead Dev", // Lead
+          role: "Frontend Lead Dev",
           github: "https://github.com/PotOfCode",
           githubUser: "PotOfCode",
           telegramUser: "PotOfCode",
@@ -19,7 +19,7 @@ const TeamCarousel = () => {
         {
           id: 2,
           name: "Yumeybelli Monasterio",
-          role: "Developer", // Developer
+          role: "Developer",
           github: "https://github.com/Yumesitahack",
           githubUser: "Yumesitahack",
           telegramUser: "Yume_08",
@@ -27,7 +27,7 @@ const TeamCarousel = () => {
         {
           id: 3,
           name: "Alfonzo Maestre",
-          role: "Developer", // Developer
+          role: "Developer",
           github: "https://github.com/AlfonzoPro",
           githubUser: "AlfonzoPro",
           telegramUser: "AlfonzoPro",
@@ -35,7 +35,7 @@ const TeamCarousel = () => {
         {
           id: 4,
           name: "Pietro Sánchez",
-          role: "Developer", // Developer
+          role: "Developer",
           github: "https://github.com/P13tr04",
           githubUser: "P13tr04",
           telegramUser: "P13tr04",
@@ -43,7 +43,7 @@ const TeamCarousel = () => {
         {
           id: 5,
           name: "Yorbys Montilla",
-          role: "Developer", // Developer
+          role: "Developer",
           github: "https://github.com/onweb-kym",
           githubUser: "onweb-kym",
           telegramUser: "Yorbysm",
@@ -56,7 +56,7 @@ const TeamCarousel = () => {
         {
           id: 1,
           name: "Luis Ramirez",
-          role: "Backend Lead Dev", // Lead
+          role: "Backend Lead Dev",
           github: "https://github.com/MrTanuk",
           githubUser: "MrTanuk",
           telegramUser: "MrTanuk",
@@ -64,7 +64,7 @@ const TeamCarousel = () => {
         {
           id: 2,
           name: "Jesus Vasquez",
-          role: "Developer", // Developer
+          role: "Developer",
           github: "https://github.com/zayas1234",
           githubUser: "zayas1234",
           telegramUser: "zayas1234",
@@ -72,7 +72,7 @@ const TeamCarousel = () => {
         {
           id: 3,
           name: "Bermys Santana",
-          role: "Developer", // Developer
+          role: "Developer",
           github: "https://github.com/Ailya45",
           githubUser: "Ailya45",
           telegramUser: "Ailya45",
@@ -80,7 +80,7 @@ const TeamCarousel = () => {
         {
           id: 4,
           name: "José Velazque",
-          role: "Developer", // Developer
+          role: "Developer",
           github: "https://github.com/Velangel",
           githubUser: "Velangel",
           telegramUser: "Velazquemamadisimo",
@@ -88,7 +88,7 @@ const TeamCarousel = () => {
         {
           id: 5,
           name: "Carlos Ortiz",
-          role: "Developer", // Developer
+          role: "Developer",
           github: "https://github.com/Hades-dev-code",
           githubUser: "Hades-dev-code",
           telegramUser: "Hades-dev-code",
@@ -96,7 +96,7 @@ const TeamCarousel = () => {
         {
           id: 6,
           name: "Rafael Rodríguez",
-          role: "Developer", // Developer
+          role: "Developer",
           github: "https://github.com/GrandR4",
           githubUser: "GrandR4",
           telegramUser: "Grand_R4",
@@ -104,7 +104,7 @@ const TeamCarousel = () => {
         {
           id: 7,
           name: "Josue Carrillo",
-          role: "Developer", // Developer
+          role: "Developer",
           github: "https://github.com/WolveJC",
           githubUser: "WolveJC",
           telegramUser: "WolveJC05",
@@ -117,7 +117,7 @@ const TeamCarousel = () => {
         {
           id: 1,
           name: "Raymon Reyes",
-          role: "AI Lead Dev", // Lead
+          role: "AI Lead Dev",
           github: "https://github.com/Ray-Phamton",
           githubUser: "Ray-Phamton",
           telegramUser: "Ray_Phamton",
@@ -125,7 +125,7 @@ const TeamCarousel = () => {
         {
           id: 2,
           name: "Mauricio Rodríguez",
-          role: "Developer", // Developer
+          role: "Developer",
           github: "https://github.com/ImMau14",
           githubUser: "ImMau14",
           telegramUser: "l0mauu",
@@ -133,7 +133,7 @@ const TeamCarousel = () => {
         {
           id: 3,
           name: "Jonny Cabrera",
-          role: "Developer", // Developer
+          role: "Developer",
           github: "https://github.com/Theyobii",
           githubUser: "Theyobii",
           telegramUser: "theyobii",
@@ -141,7 +141,7 @@ const TeamCarousel = () => {
         {
           id: 4,
           name: "Johan Santana",
-          role: "One For All CEO", // Developer
+          role: "One For All CEO",
           github: "https://github.com/santcodex",
           githubUser: "santcodex",
           telegramUser: "johanrjosue",
