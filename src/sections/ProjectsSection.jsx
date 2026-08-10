@@ -6,6 +6,7 @@ import TeamCarousel from '../components/TeamCarousel';
 import { useGitHubRepos } from '../hooks/useGitHubData';
 import { GITHUB_ORG } from '../config/constants';
 import useSectionObserver from '../hooks/useSectionObserver';
+import ScrambleText from '../components/ScrambleText';
 
 export default function ProjectsSection({ id }) {
   const prefersReducedMotion = useReducedMotion();
@@ -37,9 +38,9 @@ export default function ProjectsSection({ id }) {
           whileInView="visible"
           viewport={{ once: true, amount: 0.4 }}
         >
-          <h2 className="mb-4 text-4xl font-bold text-white">BufferRing Projects</h2>
+          <h2 className="mb-4 text-4xl font-bold text-white"><ScrambleText text="BufferRing Projects" /></h2>
           <p className="mx-auto max-w-2xl text-lg text-gray-400">
-            Explore our latest open-source projects
+            <ScrambleText text="Explore our latest open-source projects" />
           </p>
           {refreshing && !loading && (
             <motion.span
@@ -49,7 +50,7 @@ export default function ProjectsSection({ id }) {
               transition={{ duration: 0.3 }}
             >
               <span className="w-2 h-2 bg-gray-400 rounded-full animate-ping" />
-              Updating in background
+              <ScrambleText text="Updating in background" />
             </motion.span>
           )}
         </motion.div>
@@ -59,31 +60,31 @@ export default function ProjectsSection({ id }) {
             <div className="flex justify-center items-center min-h-[260px]">
               <div className="text-center">
                 <div className="mx-auto spinner" />
-                <p className="mt-4 text-lg text-gray-400">Loading projects...</p>
+                <p className="mt-4 text-lg text-gray-400"><ScrambleText text="Loading projects..." /></p>
               </div>
             </div>
           ) : error ? (
             <div className="flex justify-center items-center min-h-[260px]">
               <div className="max-w-md text-center">
                 <div className="mb-4 text-5xl text-gray-500">⚠️</div>
-                <p className="mb-2 text-xl font-medium text-white">API Limit Reached</p>
-                <p className="text-gray-400">{error}</p>
+                <p className="mb-2 text-xl font-medium text-white"><ScrambleText text="API Limit Reached" /></p>
+                <p className="text-gray-400"><ScrambleText text={error} /></p>
                 <p className="mt-4 text-sm text-gray-500">
-                  View our GitHub directly:
+                  <ScrambleText text="View our GitHub directly:" />
                   <a
                     href={`https://github.com/${GITHUB_ORG}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="ml-1 text-gray-400 hover:underline"
                   >
-                    github.com/{GITHUB_ORG}
+                    <ScrambleText text={`github.com/${GITHUB_ORG}`} />
                   </a>
                 </p>
               </div>
             </div>
           ) : repos.length === 0 ? (
             <div className="py-12 text-center">
-              <p className="text-gray-500">No projects discovered yet. Check back soon!</p>
+              <p className="text-gray-500"><ScrambleText text="No projects discovered yet. Check back soon!" /></p>
             </div>
           ) : (
             <div className="grid grid-cols-1 gap-6 mx-auto max-w-3xl">
@@ -129,9 +130,9 @@ export default function ProjectsSection({ id }) {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.7, ease: 'easeOut' }}
         >
-          <h3 className="mb-4 text-3xl font-bold text-center text-white">Our Team</h3>
+          <h3 className="mb-4 text-3xl font-bold text-center text-white"><ScrambleText text="Our Team" /></h3>
           <p className="mx-auto max-w-2xl text-lg text-center text-gray-400">
-            The people behind BufferRing
+            <ScrambleText text="The people behind BufferRing" />
           </p>
           <div className="mt-12">
             <TeamCarousel />

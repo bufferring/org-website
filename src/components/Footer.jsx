@@ -1,6 +1,7 @@
 import React from 'react';
 import { FiGithub, FiInstagram } from 'react-icons/fi';
 import { FaTiktok } from 'react-icons/fa';
+import ScrambleText from './ScrambleText';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -11,11 +12,11 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-4 md:mb-0">
             <p className="flex items-center text-gray-400">
-              Made with ♥ by BufferRing
+              <ScrambleText text="Made with ♥ by BufferRing" />
             </p>
           </div>
           <div>
-            <p className="text-gray-400">© {currentYear} BufferRing. All rights reserved.</p>
+            <p className="text-gray-400"><ScrambleText text={`© ${currentYear} BufferRing. All rights reserved.`} /></p>
           </div>
           <div className="flex space-x-4 mt-4 md:mt-0">
             <a

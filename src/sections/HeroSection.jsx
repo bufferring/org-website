@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { FiGithub, FiInstagram, FiMail, FiArrowRight } from 'react-icons/fi';
 import { FaTiktok } from 'react-icons/fa';
 import useSectionObserver from '../hooks/useSectionObserver';
+import ScrambleText from '../components/ScrambleText';
 
 const socials = [
   { icon: <FiGithub size={24} />, url: 'https://github.com/bufferring', label: 'GitHub' },
@@ -75,19 +76,19 @@ export default function HeroSection({ id }) {
             className="text-sm font-semibold uppercase tracking-[0.3em] text-gray-400"
             variants={itemVariants}
           >
-            Open Source Collective
+            <ScrambleText text="Open Source Collective" />
           </motion.p>
 
           <motion.h1 className="text-4xl font-bold text-white md:text-6xl" variants={itemVariants}>
-            Welcome to <span className="text-gray-300">BufferRing</span>
+            <ScrambleText text="Welcome to" /> <span className="text-gray-300"><ScrambleText text="BufferRing" /></span>
           </motion.h1>
 
           <motion.h2 className="text-2xl font-semibold text-gray-300 md:text-4xl" variants={itemVariants}>
-            Collaboration is a circle
+            <ScrambleText text="Collaboration is a circle" />
           </motion.h2>
 
           <motion.p className="max-w-xl text-lg text-gray-400 md:text-xl" variants={itemVariants}>
-            We build innovative open-source solutions that empower developers and create meaningful impact across the globe.
+            <ScrambleText text="We build innovative open-source solutions that empower developers and create meaningful impact across the globe." />
           </motion.p>
 
           <motion.div className="flex flex-wrap items-center gap-4" variants={itemVariants}>
@@ -95,13 +96,13 @@ export default function HeroSection({ id }) {
               href="#contact"
               className="flex items-center px-6 py-3 font-medium text-white transition-all duration-300 rounded-lg bg-gradient-to-r from-gray-700 to-gray-900 hover:from-gray-600 hover:to-gray-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-500"
             >
-              Contact Us <FiArrowRight className="ml-2" />
+              <ScrambleText text="Contact Us" /> <FiArrowRight className="ml-2" />
             </a>
             <a
               href="#projects"
               className="px-6 py-3 font-medium text-gray-300 transition-all duration-300 border border-gray-700 rounded-lg hover:border-gray-500 hover:text-white"
             >
-              Explore Projects
+              <ScrambleText text="Explore Projects" />
             </a>
           </motion.div>
 
@@ -115,7 +116,7 @@ export default function HeroSection({ id }) {
                 className="flex items-center text-gray-400 transition-colors duration-300 hover:text-white"
               >
                 {social.icon}
-                <span className="ml-2 text-sm md:text-base">{social.label}</span>
+                <span className="ml-2 text-sm md:text-base"><ScrambleText text={social.label} /></span>
               </a>
             ))}
           </motion.div>

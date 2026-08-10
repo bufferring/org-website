@@ -4,6 +4,7 @@ import { formatDistanceToNow } from 'date-fns';
 import { motion } from 'framer-motion';
 import { CACHE_KEYS, CACHE_DURATION, TEAM_MEMBERS } from '../config/constants';
 import { getCachedEntry, setCachedEntry, isExpired } from '../utils/cache';
+import ScrambleText from './ScrambleText';
 
 // Event type configurations
 const EVENT_CONFIGS = {
@@ -75,9 +76,9 @@ const ActivityItem = ({ activity }) => {
             {/* Content */}
             <div className="flex-1 min-w-0">
                 <p className="text-xs text-gray-300">
-                    <span className="font-semibold text-white">{activity.actor.login}</span>
+                    <span className="font-semibold text-white"><ScrambleText text={activity.actor.login} /></span>
                     {' '}
-                    <span className="text-gray-400">{config.getDescription(activity)}</span>
+                    <span className="text-gray-400"><ScrambleText text={config.getDescription(activity)} /></span>
                     {' '}
                     <a
                         href={`https://github.com/${activity.repo.name}`}
@@ -85,11 +86,11 @@ const ActivityItem = ({ activity }) => {
                         rel="noopener noreferrer"
                         className="font-medium text-gray-200 hover:text-white hover:underline"
                     >
-                        {activity.repo.name.split('/').pop()}
+                        <ScrambleText text={activity.repo.name.split('/').pop()} />
                     </a>
                 </p>
                 <p className="text-[10px] text-gray-500 mt-0.5">
-                    {formatDistanceToNow(new Date(activity.created_at), { addSuffix: true })}
+                    <ScrambleText text={formatDistanceToNow(new Date(activity.created_at), { addSuffix: true })} />
                 </p>
             </div>
         </div>
@@ -182,11 +183,11 @@ const ActivityFeed = () => {
                     </div>
                 ) : error ? (
                     <div className="py-8 text-center">
-                        <p className="text-xs text-gray-500">{error}</p>
+                        <p className="text-xs text-gray-500"><ScrambleText text={error} /></p>
                     </div>
                 ) : activities.length === 0 ? (
                     <div className="py-8 text-center">
-                        <p className="text-xs text-gray-500">No recent activity</p>
+                        <p className="text-xs text-gray-500"><ScrambleText text="No recent activity" /></p>
                     </div>
                 ) : (
                     <div className="marquee-container">

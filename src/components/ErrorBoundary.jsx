@@ -1,4 +1,5 @@
 import React from 'react';
+import ScrambleText from './ScrambleText';
 
 export default class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -20,16 +21,16 @@ export default class ErrorBoundary extends React.Component {
         <div className="min-h-screen flex items-center justify-center bg-gray-900">
           <div className="text-center p-8">
             <h2 className="text-2xl font-bold text-red-400 mb-4">
-              Something went wrong
+              <ScrambleText text="Something went wrong" />
             </h2>
             <p className="text-gray-300 mb-4">
-              An error occurred while rendering this component.
+              <ScrambleText text="An error occurred while rendering this component." />
             </p>
             <button
               onClick={() => this.setState({ hasError: false, error: null })}
               className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
             >
-              Try again
+              <ScrambleText text="Try again" />
             </button>
           </div>
         </div>

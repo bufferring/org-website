@@ -3,6 +3,7 @@ import { FiMenu, FiX } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
 import logo from '../img/logo_nl.png';
 import { useSectionContext } from '../context/SectionContext';
+import ScrambleText from '../components/ScrambleText';
 
 const LABEL_MAP = {
   hero: 'Home',
@@ -64,7 +65,7 @@ export default function Navbar({ sectionIds = [] }) {
             transition={{ type: 'spring', stiffness: 200, damping: 15 }}
           />
           <span className="hidden text-lg font-semibold tracking-wide text-white sm:inline-block">
-            BufferRing
+            <ScrambleText text="BufferRing" />
           </span>
           <span className="sr-only">BufferRing home</span>
         </button>
@@ -88,7 +89,7 @@ export default function Navbar({ sectionIds = [] }) {
                     transition={{ type: 'spring', stiffness: 250, damping: 24 }}
                   />
                 )}
-                <span className="relative">{item.label}</span>
+                <span className="relative"><ScrambleText text={item.label} /></span>
               </button>
             );
           })}
@@ -131,7 +132,7 @@ export default function Navbar({ sectionIds = [] }) {
                       className={`flex w-full items-center justify-between px-5 py-3 text-left text-sm font-medium transition-colors ${selected ? 'text-white bg-white/10' : 'text-gray-300 hover:text-white hover:bg-white/5'}`}
                       whileTap={{ scale: 0.98 }}
                     >
-                      <span>{item.label}</span>
+                      <span><ScrambleText text={item.label} /></span>
                       {selected && (
                         <motion.span
                           layoutId="mobile-dot"

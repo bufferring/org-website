@@ -4,6 +4,7 @@ import { FiMail, FiGithub, FiInstagram } from 'react-icons/fi';
 import { FaTiktok } from 'react-icons/fa';
 import useSectionObserver from '../hooks/useSectionObserver';
 import { submitContactForm } from '../utils/formSubmit';
+import ScrambleText from '../components/ScrambleText';
 
 const contactItems = [
   {
@@ -40,6 +41,7 @@ export default function ContactSection({ id }) {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -59,6 +61,8 @@ export default function ContactSection({ id }) {
       }
     } catch (error) {
       console.error('Error submitting form:', error);
+      setSubmitError('Something went wrong. Please try again or email us directly.');
+      setTimeout(() => setSubmitError(null), 5000);
     } finally {
       setIsSubmitting(false);
     }
@@ -100,9 +104,9 @@ export default function ContactSection({ id }) {
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.7, ease: 'easeOut' }}
         >
-          <h2 className="mb-4 text-4xl font-bold text-white">Contact BufferRing</h2>
+          <h2 className="mb-4 text-4xl font-bold text-white"><ScrambleText text="Contact BufferRing" /></h2>
           <p className="mx-auto max-w-2xl text-lg text-gray-400">
-            Have a project idea or want to collaborate? Get in touch!
+            <ScrambleText text="Have a project idea or want to collaborate? Get in touch!" />
           </p>
         </motion.div>
 
@@ -115,7 +119,7 @@ export default function ContactSection({ id }) {
             className="space-y-10"
           >
             <motion.h3 className="text-2xl font-bold text-white" variants={itemVariants}>
-              Contact Information
+              <ScrambleText text="Contact Information" />
             </motion.h3>
 
             <motion.div className="space-y-6" variants={containerVariants}>
@@ -134,18 +138,18 @@ export default function ContactSection({ id }) {
                   </div>
                   <div>
                     <h4 className="text-lg font-semibold text-white transition-colors group-hover:text-gray-200">
-                      {item.title}
+                      <ScrambleText text={item.title} />
                     </h4>
-                    <p className="text-gray-400 transition-colors group-hover:text-gray-300">{item.content}</p>
+                    <p className="text-gray-400 transition-colors group-hover:text-gray-300"><ScrambleText text={item.content} /></p>
                   </div>
                 </motion.a>
               ))}
             </motion.div>
 
             <motion.div className="pt-6 border-t border-gray-800" variants={itemVariants}>
-              <h4 className="mb-4 text-xl font-semibold text-white">Our Mission</h4>
+              <h4 className="mb-4 text-xl font-semibold text-white"><ScrambleText text="Our Mission" /></h4>
               <p className="leading-relaxed text-gray-400">
-                BufferRing accelerates startups and product teams with open-source platforms engineered for scale. We deliver implementation support, strategic advisory, and fundraising enablement so companies can launch faster, secure investment, and operate with confidence.
+                <ScrambleText text="BufferRing accelerates startups and product teams with open-source platforms engineered for scale. We deliver implementation support, strategic advisory, and fundraising enablement so companies can launch faster, secure investment, and operate with confidence." />
               </p>
             </motion.div>
           </motion.div>
@@ -156,7 +160,7 @@ export default function ContactSection({ id }) {
             viewport={{ once: true, amount: 0.35 }}
             transition={{ duration: 0.6, ease: 'easeOut', delay: 0.15 }}
           >
-            <h3 className="mb-6 text-2xl font-bold text-white">Send Message</h3>
+            <h3 className="mb-6 text-2xl font-bold text-white"><ScrambleText text="Send Message" /></h3>
 
             {submitted && (
               <motion.div
@@ -164,7 +168,17 @@ export default function ContactSection({ id }) {
                 animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
                 className="p-4 mb-6 text-green-300 rounded-lg border border-green-500/30 bg-green-500/10"
               >
-                Thank you for your message! Please check your email to activate the form endpoint if this is your first time.
+                <ScrambleText text="Thank you for your message! Please check your email to activate the form endpoint if this is your first time." />
+              </motion.div>
+            )}
+
+            {submitError && (
+              <motion.div
+                initial={prefersReducedMotion ? undefined : { opacity: 0, y: 10 }}
+                animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+                className="p-4 mb-6 text-red-300 rounded-lg border border-red-500/30 bg-red-500/10"
+              >
+                <ScrambleText text={submitError} />
               </motion.div>
             )}
 
@@ -174,7 +188,7 @@ export default function ContactSection({ id }) {
               <div className="relative p-8 rounded-2xl backdrop-blur-xl bg-black/60 border border-gray-800/60">
                 <div className="mb-6">
                   <label htmlFor="name" className="block mb-2 font-medium text-gray-300">
-                    Your Name
+                    <ScrambleText text="Your Name" />
                   </label>
                   <input
                     type="text"
@@ -191,7 +205,7 @@ export default function ContactSection({ id }) {
 
                 <div className="mb-6">
                   <label htmlFor="email" className="block mb-2 font-medium text-gray-300">
-                    Your Email
+                    <ScrambleText text="Your Email" />
                   </label>
                   <input
                     type="email"
@@ -208,7 +222,7 @@ export default function ContactSection({ id }) {
 
                 <div className="mb-6">
                   <label htmlFor="message" className="block mb-2 font-medium text-gray-300">
-                    Message
+                    <ScrambleText text="Message" />
                   </label>
                   <textarea
                     id="message"
@@ -236,10 +250,10 @@ export default function ContactSection({ id }) {
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                       </svg>
-                      Sending...
+                      <ScrambleText text="Sending..." />
                     </span>
                   ) : (
-                    'Send Message'
+                    <ScrambleText text="Send Message" />
                   )}
                 </motion.button>
               </div>

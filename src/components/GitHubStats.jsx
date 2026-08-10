@@ -3,6 +3,7 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, LineChart, L
 import { format, subMonths, parseISO, differenceInMonths } from 'date-fns';
 import { FaChartBar, FaTimes } from 'react-icons/fa';
 import ModalPortal from './ModalPortal';
+import ScrambleText from './ScrambleText';
 
 const GitHubStats = ({ username }) => {
   const [stats, setStats] = useState(null);
@@ -174,7 +175,7 @@ const GitHubStats = ({ username }) => {
         title="Stats"
       >
         <FaChartBar />
-        <span>Stats</span>
+        <span><ScrambleText text="Stats" /></span>
       </button>
 
       {showModal && (
@@ -185,7 +186,7 @@ const GitHubStats = ({ username }) => {
             </div>
           ) : error ? (
             <div className="p-6 text-center text-red-400 text-base">
-              <p>Error loading stats: {error}</p>
+              <p><ScrambleText text={`Error loading stats: ${error}`} /></p>
               <button
                 onClick={() => {
                   setError(null);
@@ -194,37 +195,37 @@ const GitHubStats = ({ username }) => {
                 }}
                 className="mt-4 text-gray-300 hover:text-white underline"
               >
-                Try again
+                <ScrambleText text="Try again" />
               </button>
             </div>
           ) : stats ? (
             <div className="space-y-8">
               <h3 className="text-2xl font-bold text-white text-center mb-8">
-                GitHub Statistics
+                <ScrambleText text="GitHub Statistics" />
               </h3>
 
               {/* Activity Overview */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="p-4 bg-gray-800/50 rounded-lg">
-                  <p className="text-sm text-gray-400">First Public Commit</p>
-                  <p className="text-xl font-semibold text-white mt-1">{stats.firstCommit}</p>
+                  <p className="text-sm text-gray-400"><ScrambleText text="First Public Commit" /></p>
+                  <p className="text-xl font-semibold text-white mt-1"><ScrambleText text={stats.firstCommit} /></p>
                 </div>
                 <div className="p-4 bg-gray-800/50 rounded-lg">
-                  <p className="text-sm text-gray-400">Activity Level</p>
-                  <p className="text-xl font-semibold text-white mt-1">{stats.activityLevel}</p>
+                  <p className="text-sm text-gray-400"><ScrambleText text="Activity Level" /></p>
+                  <p className="text-xl font-semibold text-white mt-1"><ScrambleText text={stats.activityLevel} /></p>
                 </div>
               </div>
 
               {/* Repository Stats */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="p-4 bg-gray-800/50 rounded-lg">
-                  <p className="text-sm text-gray-400">Public Repositories</p>
-                  <p className="text-xl font-semibold text-white mt-1">{stats.publicReposCount}</p>
+                  <p className="text-sm text-gray-400"><ScrambleText text="Public Repositories" /></p>
+                  <p className="text-xl font-semibold text-white mt-1"><ScrambleText text={String(stats.publicReposCount)} /></p>
                 </div>
                 <div className="p-4 bg-gray-800/50 rounded-lg">
-                  <p className="text-sm text-gray-400">Average Activity</p>
+                  <p className="text-sm text-gray-400"><ScrambleText text="Average Activity" /></p>
                   <p className="text-xl font-semibold text-white mt-1">
-                    {stats.averageCommitsPerMonth}/month
+                    <ScrambleText text={`${stats.averageCommitsPerMonth}/month`} />
                   </p>
                 </div>
               </div>
@@ -232,7 +233,7 @@ const GitHubStats = ({ username }) => {
               {/* Commit Activity Chart */}
               <div className="bg-gray-800/30 rounded-lg p-6">
                 <p className="text-base text-gray-300 mb-4 text-center">
-                  Commit Activity (Last Year)
+                  <ScrambleText text="Commit Activity (Last Year)" />
                 </p>
                 <div className="h-64 md:h-80">
                   <ResponsiveContainer width="100%" height="100%">
@@ -275,7 +276,7 @@ const GitHubStats = ({ username }) => {
               {stats.languageData.length > 0 && (
                 <div className="bg-gray-800/30 rounded-lg p-6">
                   <p className="text-base text-gray-300 mb-4 text-center">
-                    Languages in Public Repositories
+                    <ScrambleText text="Languages in Public Repositories" />
                   </p>
                   <div className="h-64 md:h-80">
                     <ResponsiveContainer width="100%" height="100%">
@@ -312,9 +313,9 @@ const GitHubStats = ({ username }) => {
 
               {/* Summary Stats */}
               <div className="text-center p-6 bg-gray-800/30 rounded-lg">
-                <p className="text-base text-gray-300">Total Public Commits</p>
+                <p className="text-base text-gray-300"><ScrambleText text="Total Public Commits" /></p>
                 <p className="text-2xl font-semibold text-white mt-2">
-                  {stats.totalCommits} commits
+                  <ScrambleText text={`${stats.totalCommits} commits`} />
                 </p>
               </div>
             </div>

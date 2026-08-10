@@ -4,6 +4,7 @@ import { FiGithub, FiExternalLink, FiStar } from 'react-icons/fi';
 
 import { getAsciiCover } from '../utils/asciiArt.jsx';
 import MatrixReveal from './MatrixReveal';
+import ScrambleText from './ScrambleText';
 
 export default function RepoCard({ repo, githubOrg, index, languages }) {
   const asciiArt = getAsciiCover(repo.name, repo.topics, languages);
@@ -60,7 +61,7 @@ export default function RepoCard({ repo, githubOrg, index, languages }) {
 
           <div className="flex flex-col h-[100%] w-[100%]">
             <div className="flex justify-between items-start mb-3">
-              <h3 className="text-xl font-bold text-white">{repo.name}</h3>
+              <h3 className="text-xl font-bold text-white"><ScrambleText text={repo.name} /></h3>
               <div className="flex space-x-2">
                 <a
                   href={repo.html_url}
@@ -84,7 +85,7 @@ export default function RepoCard({ repo, githubOrg, index, languages }) {
                 )}
               </div>
             </div>
-            <p className="mb-4 text-gray-400">{repo.description || 'A BufferRing project'}</p>
+            <p className="mb-4 text-gray-400"><ScrambleText text={repo.description || 'A BufferRing project'} /></p>
 
             <div className="flex flex-wrap gap-2 mb-2">
               {repo.topics?.slice(0, 5).map((topic, idx) => (
@@ -92,7 +93,7 @@ export default function RepoCard({ repo, githubOrg, index, languages }) {
                   key={idx}
                   className="px-2 py-1 text-xs font-medium text-gray-300 bg-gray-800 rounded-full"
                 >
-                  {topic}
+                  <ScrambleText text={topic} />
                 </span>
               ))}
             </div>
@@ -110,21 +111,21 @@ export default function RepoCard({ repo, githubOrg, index, languages }) {
               </div>
             ) : (
               <div className="flex flex-wrap gap-2 mb-6">
-                <p className="text-gray-500">No languages to display</p>
+                <p className="text-gray-500"><ScrambleText text="No languages to display" /></p>
               </div>
             )}
 
             <div className="flex mt-[auto] justify-between items-center text-sm text-gray-500">
               <span className="flex items-center mr-4">
                 <div className="mr-1 w-3 h-3 bg-gray-500 rounded-full"></div>
-                {repo.language || 'Code'}
+                <ScrambleText text={repo.language || 'Code'} />
               </span>
               <span className="flex mr-[auto] items-center">
                 <FiStar className="mr-1 text-gray-400" />
-                {repo.stargazers_count}
+                <ScrambleText text={String(repo.stargazers_count)} />
               </span>
               <span className="text-gray-500">
-                Updated: {new Date(repo.updated_at).toLocaleDateString()}
+                <ScrambleText text={`Updated: ${new Date(repo.updated_at).toLocaleDateString()}`} />
               </span>
             </div>
           </div>

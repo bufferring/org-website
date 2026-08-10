@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { FaGithub, FaTelegram } from "react-icons/fa";
 import GitHubStats from "./GitHubStats";
+import ScrambleText from "./ScrambleText";
 
 const TeamCarousel = () => {
   const divisions = [
@@ -155,7 +156,7 @@ const TeamCarousel = () => {
       {divisions.map((division, index) => (
         <div key={division.name} className="overflow-hidden py-4">
           <h3 className="mb-6 text-xl font-bold text-center text-gray-300">
-            {division.name}
+            <ScrambleText text={division.name} />
           </h3>
           <div
             className={`marquee-container ${
@@ -172,15 +173,12 @@ const TeamCarousel = () => {
                   <div className="flex items-center mb-4">
                     <div className="flex overflow-hidden justify-center items-center mr-4 w-16 h-16 bg-gray-800 rounded-full border-2 border-gray-700">
                       <span className="text-xl font-bold text-gray-300">
-                        {member.name
-                          .split(" ")
-                          .map((n) => n[0])
-                          .join("")}
+                        <ScrambleText text={member.name.split(" ").map((n) => n[0]).join("")} />
                       </span>
                     </div>
                     <div>
-                      <h4 className="font-bold text-white">{member.name}</h4>
-                      <p className="text-sm text-gray-400">{member.role}</p>
+                      <h4 className="font-bold text-white"><ScrambleText text={member.name} /></h4>
+                      <p className="text-sm text-gray-400"><ScrambleText text={member.role} /></p>
                     </div>
                   </div>
                   <div className="flex flex-col space-y-2">
@@ -192,7 +190,7 @@ const TeamCarousel = () => {
                         className="flex items-center px-3 py-1 space-x-1 text-xs text-gray-300 bg-gray-800 rounded-full transition-colors hover:bg-gray-700 w-fit"
                       >
                         <FaTelegram />
-                        <span>@{member.telegramUser}</span>
+                        <span><ScrambleText text={`@${member.telegramUser}`} /></span>
                       </a>
                       <a
                         href={member.github}
@@ -201,7 +199,7 @@ const TeamCarousel = () => {
                         className="flex items-center px-3 py-1 space-x-1 text-xs text-gray-300 bg-gray-800 rounded-full transition-colors hover:bg-gray-700 w-fit"
                       >
                         <FaGithub />
-                        <span>{member.githubUser}</span>
+                        <span><ScrambleText text={member.githubUser} /></span>
                       </a>
                       <GitHubStats username={member.githubUser} />
                     </div>
